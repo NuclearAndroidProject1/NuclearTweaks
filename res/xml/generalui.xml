@@ -6,4 +6,86 @@
     android:layout="@layout/preference_tab"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
+    <PreferenceCategory
+        android:key="settings_appearance"
+        android:title="@string/appearance_settings_title">
+
+	    <ListPreference
+	        android:key="lcd_density"
+	        android:title="@string/lcd_density"
+	        android:persistent="false" /> 
+
+	    <com.android.settings.DropDownPreference
+	        android:key="night_mode"
+	        android:title="@string/night_mode_title"
+	        android:summary="@string/night_mode_summary"
+	        android:entries="@array/night_mode_entries"
+	        android:entryValues="@array/night_mode_values" />
+
+	    <ListPreference
+                android:key="dashboard_columns"
+                android:title="@string/dashboard_columns_title"
+                android:dialogTitle="@string/dashboard_columns_dialog_title"
+                android:entries="@array/dashboard_columns_entries"
+                android:entryValues="@array/dashboard_columns_values"
+                android:summary="@string/dashboard_columns_summary"
+                android:persistent="false" />
+
+        <com.android.settings.preference.SystemSettingSwitchPreference
+                android:key="dashboard_tileview_double_lines"
+                android:title="@string/dashboard_tileview_double_lines_title"
+                android:summaryOn="@string/dashboard_tileview_double_lines_summary_on"
+                android:summaryOff="@string/dashboard_tileview_double_lines_summary_off"
+                android:defaultValue="false" />
+
+        <ListPreference
+                android:key="dashboard_switches"
+                android:title="@string/dashboard_switches_title"
+                android:dialogTitle="@string/dashboard_switches_dialog_title"
+                android:entries="@array/dashboard_switches_entries"
+                android:entryValues="@array/dashboard_switches_values"
+                android:summary="@string/dashboard_switches_summary"
+                android:persistent="false" />
+	</PreferenceCategory>
+
+	<PreferenceCategory
+        android:key="settings_gesture"
+        android:title="@string/gesture_settings_title">
+
+        <PreferenceScreen
+            android:key="offscreen_gestures"
+            android:title="@string/offscreen_gestures_title">
+            <intent
+                    android:action="android.intent.action.MAIN"
+                    android:targetClass="org.omnirom.device.DeviceSettings"
+                    android:targetPackage="org.omnirom.device" />
+    	</PreferenceScreen>
+
+        <!-- gesture_anywhere -->
+    	<PreferenceScreen
+    		android:key="gesture_anywhere"
+    		android:fragment="com.android.settings.nuclear.gestureanywhere.GestureAnywhereSettings"
+	    	android:title="@string/gesture_anywhere_title" >
+
+   		</PreferenceScreen>
+
+    </PreferenceCategory>
+
+	<PreferenceCategory
+        android:key="settings_notled"
+        android:title="@string/ledsnot_settings_title">
+
+        <PreferenceScreen
+			android:key="remix_notificationlight_settings"
+			android:title="@string/remix_notlight_title"
+			android:fragment="com.android.settings.nuclear.NotificationLightSettings"
+			 />
+	    <PreferenceScreen
+			android:key="remix_batterylight_settings"
+			android:title="@string/remix_batlight_title"
+			android:fragment="com.android.settings.nuclear.BatteryLightSettings"
+			 />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

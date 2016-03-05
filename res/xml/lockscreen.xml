@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/lockscreen_category"
+    android:layout="@layout/preference_tab"
+    xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
+
+    <Preference
+            android:key="lockscreen_wallpaper_set"
+            android:title="@string/lockscreen_wallpaper_set_title"
+            android:persistent="false"/>
+
+	<Preference
+            android:key="lockscreen_wallpaper_clear"
+            android:title="@string/lockscreen_wallpaper_clear_title"
+            android:persistent="false"/>
+
+    <com.android.settings.preference.SystemSettingSwitchPreference
+            android:key="lockscreen_visualizer"
+            android:title="@string/lockscreen_visualizer_title"
+            android:defaultValue="true"/>
+
+
+    <com.android.settings.preference.SystemSettingSwitchPreference
+        android:key="power_menu_lockscreen"
+        android:title="@string/powermenu_lockscreen_title"
+        android:summary="@string/powermenu_lockscreen_summary"
+        android:defaultValue="true" />
+
+    <com.android.settings.preference.SystemSettingSwitchPreference
+        android:key="lockscreen_see_through"
+        android:title="@string/lockscreen_see_through_title"
+        android:summary="@string/lockscreen_see_through_summary"
+        android:defaultValue="false" />
+
+    <com.android.settings.preference.SeekBarPreference
+        android:key="lockscreen_blur_radius"
+        android:title="@string/lockscreen_blur_radius"
+        android:dependency="lockscreen_see_through"
+        android:max="25"
+        settings:defaultValue="14" />
+
+    <PreferenceScreen
+        android:key="lock_screen_weather_settings"
+        android:title="@string/lock_screen_weather_settings_title"
+        android:summary="@string/lock_screen_weather_settings_summary"
+        android:fragment="com.android.settings.nuclear.LockScreenWeatherSettings" />
+
+        <PreferenceCategory
+        android:key="more_cat_lock_clock"
+        android:title="@string/lock_clock_title">
+
+        <PreferenceScreen
+            android:key="lock_clock_clock_section"
+            android:title="@string/lock_clock_clock_section_title"
+            android:summary="@string/lock_clock_clock_section_summary" >
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetClass="com.cyanogenmod.lockclock.preference.Preferences"
+                android:targetPackage="com.cyanogenmod.lockclock" >
+                <extra android:name=":android:show_fragment"
+                    android:value="com.cyanogenmod.lockclock.preference.ClockPreferences" />
+            </intent>
+        </PreferenceScreen>
+
+        <PreferenceScreen
+            android:key="lock_clock_weather_section"
+            android:title="@string/lock_clock_weather_section_title"
+            android:summary="@string/lock_clock_weather_section_summary" >
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetClass="com.cyanogenmod.lockclock.preference.Preferences"
+                android:targetPackage="com.cyanogenmod.lockclock" >
+                <extra android:name=":android:show_fragment"
+                    android:value="com.cyanogenmod.lockclock.preference.WeatherPreferences" />
+            </intent>
+        </PreferenceScreen>
+
+        <PreferenceScreen
+            android:key="lock_clock_calendar_section"
+            android:title="@string/lock_clock_calendar_section_title"
+            android:summary="@string/lock_clock_calendar_section_summary" >
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetClass="com.cyanogenmod.lockclock.preference.Preferences"
+                android:targetPackage="com.cyanogenmod.lockclock" >
+                <extra android:name=":android:show_fragment"
+                    android:value="com.cyanogenmod.lockclock.preference.CalendarPreferences" />
+            </intent>
+        </PreferenceScreen>
+    </PreferenceCategory>
+         
+
+</PreferenceScreen>

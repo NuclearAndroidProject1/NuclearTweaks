@@ -6,4 +6,56 @@
     android:layout="@layout/preference_tab"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
+    <com.android.settings.preference.SystemSettingSwitchPreference
+        android:key="recents_show_search_bar"
+        android:title="@string/recents_show_searchbar"
+        android:summary="@string/recents_show_searchbar_summary"
+        settings:keywords="@string/keywords_recents_show_searchbar"
+        android:defaultValue="false" />
+
+    <com.android.settings.preference.SystemSettingSwitchPreference
+        android:key="recents_full_screen"
+        android:title="@string/recents_show_fullscreen"
+        android:summaryOn="@string/recents_fullscreen_summary_enabled"
+        android:summaryOff="@string/recents_fullscreen_summary_disabled"
+        android:defaultValue="false" />
+
+        <PreferenceCategory
+        android:key="recents_panel"
+        android:title="@string/recents_panel_category" >
+
+    <com.android.settings.preference.SystemSettingSwitchPreference
+            android:key="systemui_recents_mem_display"
+            android:title="@string/recents_show_membar_title"
+            android:summary="@string/recents_show_membar_summary"
+            android:defaultValue="false" />
+
+        <SwitchPreference
+            android:key="show_clear_all_recents"
+            android:title="@string/show_clear_all_recents_button_title"
+            android:summary="@string/show_clear_all_recents_button_summary"
+            android:defaultValue="true" />
+
+        <ListPreference
+            android:key="recents_clear_all_location"
+            android:title="@string/recents_clear_all_location_title"
+            android:entries="@array/recents_clear_all_location_entries"
+            android:entryValues="@array/recents_clear_all_location_values"
+            android:defaultValue="3"
+            android:dependency="show_clear_all_recents" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="nrr_slim_recents_panel"
+        android:title="@string/nrr_recent_slim_category" >
+
+        <!-- Slim Recents -->
+        <PreferenceScreen
+           android:key="slim_recents"
+            android:title="@string/slim_recents_panel"
+	    android:fragment="com.android.settings.nuclear.Slimrecents" />
+
+ </PreferenceCategory>
+
 </PreferenceScreen>

@@ -6,4 +6,42 @@
     android:layout="@layout/preference_tab"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
+    <!-- SuperSU -->
+        <PreferenceScreen
+                android:id="@+id/supersu_settings"
+                android:title="@string/supersu_title">
+                <intent
+                    android:action="android.intent.action.MAIN"
+                    android:targetPackage="eu.chainfire.supersu"
+                    android:targetClass="eu.chainfire.supersu.MainActivity" />
+        </PreferenceScreen>
+
+        <PreferenceScreen
+	    	android:key="key_synapse"
+	       	android:title="@string/synapse_title">
+	        <intent android:targetPackage="com.af.synapse"
+	    		android:action="android.intent.action.MAIN"
+	         	android:targetClass="com.af.synapse.MainActivity" >
+	        </intent>  
+	    </PreferenceScreen>
+ 
+		<PreferenceScreen
+			android:key="key_kernel_adiutor"
+			android:title="@string/kernel_adiutor_title">
+			<intent
+			    android:action="android.intent.action.MAIN"
+			    android:targetPackage="com.grarak.kerneladiutor"
+			    android:targetClass="com.grarak.kerneladiutor.MainActivity" />
+	    </PreferenceScreen>
+
+	    <PreferenceScreen
+            android:key="systemuituner"
+            android:title="@string/nuclear_extras_systemuituner" >
+                <intent
+                    android:action="android.intent.action.MAIN"
+                    android:targetPackage="com.android.systemui"
+                    android:targetClass="com.android.systemui.tuner.TunerActivity" />
+        </PreferenceScreen>
+
+
 </PreferenceScreen>

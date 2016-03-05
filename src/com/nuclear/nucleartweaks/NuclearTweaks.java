@@ -30,6 +30,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import android.content.res.Resources;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ImageSpan;
+import android.graphics.drawable.Drawable;
 import com.android.internal.logging.MetricsLogger;
 
 import com.android.internal.util.slim.DeviceUtils;
@@ -38,12 +43,14 @@ import com.nuclear.nucleartweaks.tabs.StatusBar;
 import com.nuclear.nucleartweaks.tabs.Navigation;
 import com.nuclear.nucleartweaks.tabs.Recents;
 import com.nuclear.nucleartweaks.tabs.System;
-import com.nuclear.nucleartweaks.tabs.Misc;
+import com.nuclear.nucleartweaks.tabs.LockScreen;
 import com.nuclear.nucleartweaks.PagerSlidingTabStrip;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import java.util.ArrayList;
 import java.util.List;
+import com.android.settings.Utils;
+import android.util.SettingConfirmationHelper;
 
 public class NuclearTweaks extends SettingsPreferenceFragment {
 
@@ -53,6 +60,8 @@ public class NuclearTweaks extends SettingsPreferenceFragment {
     String titleString[];
     ViewGroup mContainer;
     PagerSlidingTabStrip mTabs;
+
+    Context context;
 
     static Bundle mSavedState;
 
@@ -67,6 +76,18 @@ public class NuclearTweaks extends SettingsPreferenceFragment {
         mTabs.setViewPager(mViewPager);
 
         setHasOptionsMenu(true);
+        Resources res = getResources();
+ 
+        SettingConfirmationHelper.request(
+            getActivity(),
+            Settings.System.PERFORMANCE_APP,
+            res.getString(R.string.performance_app_title),
+            res.getString(R.string.performance_app_message),
+            res.getString(R.string.kernel_adiutor_title),
+            res.getString(R.string.synapse_title),
+            null,
+            null
+        );
         return view;
     }
 
@@ -155,9 +176,11 @@ public class NuclearTweaks extends SettingsPreferenceFragment {
         }
     }
 
-    class StatusBarAdapter extends FragmentPagerAdapter {
+    class StatusBarAdapter extends FragmentPagerAdapter implements
+    PagerSlidingTabStrip.IconTabProvider {
         String titles[] = getTitles();
         private Fragment frags[] = new Fragment[titles.length];
+        final int[] icons = new int[]{R.drawable.ic_nuclear_misc, R.drawable.ic_settings_statusbar, R.drawable.ic_nap_buttons_exposed ,R.drawable.ic_xd_recents, R.drawable.ic_settings_security, R.drawable.ic_settings_supersu_tile};
 
         public StatusBarAdapter(FragmentManager fm) {
             super(fm);
@@ -165,13 +188,21 @@ public class NuclearTweaks extends SettingsPreferenceFragment {
             frags[1] = new StatusBar();
             frags[2] = new Navigation();
             frags[3] = new Recents();
-            frags[4] = new System();
-            frags[5] = new Misc();
+            frags[4] = new LockScreen();
+            frags[5] = new System();
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return titles[position];
+           // return titles[position];
+            // Generate title based on item position
+            Drawable image = context.getResources().getDrawable(icons[position]);
+            image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
+            // Replace blank spaces with image icon
+            SpannableString sb = new SpannableString("   " + titles[position]);
+            ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
+            sb.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return sb;
         }
 
         @Override
@@ -183,6 +214,12 @@ public class NuclearTweaks extends SettingsPreferenceFragment {
         public int getCount() {
             return frags.length;
         }
+
+        @Override
+        public int getPageIconResId(int position) {
+            return icons[position]; 
+        }
+
     }
 
     private String[] getTitles() {
@@ -193,16 +230,16 @@ public class NuclearTweaks extends SettingsPreferenceFragment {
                     getString(R.string.statusbar_category),
                     getString(R.string.navigation_category),
                     getString(R.string.multitasking_category),
-                    getString(R.string.system_category),
-	                getString(R.string.misc_category)};
+                    getString(R.string.lockscreen_category),
+                    getString(R.string.system_category)};
         } else {
         titleString = new String[]{
                     getString(R.string.generalui_category),
                     getString(R.string.statusbar_category),
                     getString(R.string.navigation_category),
                     getString(R.string.multitasking_category),
-                    getString(R.string.system_category),
-	                getString(R.string.misc_category)};
+                    getString(R.string.lockscreen_category),
+                    getString(R.string.system_category)};
         }
         return titleString;
     }
