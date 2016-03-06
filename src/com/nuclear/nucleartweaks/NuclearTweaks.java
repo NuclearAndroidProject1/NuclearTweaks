@@ -75,6 +75,22 @@ public class NuclearTweaks extends SettingsPreferenceFragment {
         mViewPager.setAdapter(StatusBarAdapter);
         mTabs.setViewPager(mViewPager);
 
+        ViewGroup tabVG = (ViewGroup) mTabs.getChildAt(0);
+        int children = tabVG.getChildCount();
+        for(int ii=0;ii<children;ii++) {
+    		View vv = tabVG.getChildAt(ii);
+   			vv.setLongClickable(true);
+    		vv.setOnLongClickListener(new View.OnLongClickListener() {
+        		@Override
+       			public boolean onLongClick(View v) {
+            		Toast.makeText(getActivity(),
+                	(R.string.nucleartweaks_dialog_toast),
+               		 Toast.LENGTH_LONG).show();
+            		return false;
+       			}           
+    		});
+		}		
+
         setHasOptionsMenu(true);
         Resources res = getResources();
  
@@ -176,8 +192,7 @@ public class NuclearTweaks extends SettingsPreferenceFragment {
         }
     }
 
-    class StatusBarAdapter extends FragmentPagerAdapter implements
-    PagerSlidingTabStrip.IconTabProvider {
+    class StatusBarAdapter extends FragmentPagerAdapter {
         String titles[] = getTitles();
         private Fragment frags[] = new Fragment[titles.length];
         final int[] icons = new int[]{R.drawable.ic_nuclear_misc, R.drawable.ic_settings_statusbar, R.drawable.ic_nap_buttons_exposed ,R.drawable.ic_xd_recents, R.drawable.ic_settings_security, R.drawable.ic_settings_supersu_tile};
@@ -194,15 +209,8 @@ public class NuclearTweaks extends SettingsPreferenceFragment {
 
         @Override
         public CharSequence getPageTitle(int position) {
-           // return titles[position];
-            // Generate title based on item position
-            Drawable image = context.getResources().getDrawable(icons[position]);
-            image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
-            // Replace blank spaces with image icon
-            SpannableString sb = new SpannableString("   " + titles[position]);
-            ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
-            sb.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            return sb;
+        	return titles[position];
+    
         }
 
         @Override
@@ -215,10 +223,6 @@ public class NuclearTweaks extends SettingsPreferenceFragment {
             return frags.length;
         }
 
-        @Override
-        public int getPageIconResId(int position) {
-            return icons[position]; 
-        }
 
     }
 

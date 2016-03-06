@@ -102,6 +102,10 @@
 
      <PreferenceCategory
              android:title="@string/status_bar_options_title" />
+        <PreferenceScreen
+        android:key="carrierlabel"
+        android:fragment="com.nuclear.nucleartweaks.CarrierLabel"
+        android:title="@string/carrier_options" />
 	<!-- Status bar logo -->
     <!--<com.android.settings.slim.SystemSettingSwitchPreference-->
     <com.android.settings.preference.SystemSettingSwitchPreference

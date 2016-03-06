@@ -17,7 +17,7 @@
 	            android:key="global_actions"
 	            android:title="@string/global_actions_title"
 	            android:summary="@string/global_actions_summary"
-	            android:fragment="com.android.settings.nuclear.GlobalActionsSettings" />
+	            android:fragment="com.nuclear.nucleartweaks.GlobalActionsSettings" />
 
 
 	    <PreferenceCategory
